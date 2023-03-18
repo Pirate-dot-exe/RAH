@@ -1,0 +1,57 @@
+#:kivy 2.1.0
+
+WindowManager:
+    id: sm
+    LoadingScreen:
+    HomeScreen:
+    SecondScreen:
+
+<LoadingScreen>:
+    on_enter: root.callback_func()
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'kv.png'    #imagem desejada (deve estar na pasta do app)
+        Label:
+            id: progress_info
+            text: "Loading... 0%"
+            size_hint: 1, 0.1
+        ProgressBar:
+            id: pb
+            size_hint: 1, 0.3
+
+<HomeScreen>:
+    on_enter: root.destroy_loading()
+    BoxLayout:
+        orientation: 'vertical'
+        #Image:
+        #    source: 'camera.png'
+        #Camera:
+        #    id: camera
+        #    resolution: 640, 480
+        #    play: True
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.25
+            Button:
+                text: 'Goto settings'
+                on_press: root.manager.current = 'settings'
+                size_hint: 0.5, 1
+            Button:
+                text: 'Quit'
+                size_hint: 0.5, 1  #x, y
+                on_press: root.quit() 
+
+<SecondScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: input_teste 
+            text: "640, 480"
+            multiline: False
+        Button:
+            text: 'Set Camera Resolution'
+            on_press: root.set_camera_resolution()
+        Button:
+            text: 'Back to home'
+            on_press: root.manager.current = 'home'
