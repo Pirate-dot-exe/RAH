@@ -5,6 +5,7 @@ WindowManager:
     LoadingScreen:
     HomeScreen:
     SecondScreen:
+    BluetoothScreen:
 
 <LoadingScreen>:
     on_enter: root.callback_func()
@@ -34,6 +35,10 @@ WindowManager:
             orientation: 'horizontal'
             size_hint: 1, 0.25
             Button:
+                text: 'Go to bluetooth'
+                on_press: root.manager.current = 'bluetooth_config'
+                size_hint: 0.5, 1
+            Button:
                 text: 'Goto settings'
                 on_press: root.manager.current = 'settings'
                 size_hint: 0.5, 1
@@ -55,3 +60,10 @@ WindowManager:
         Button:
             text: 'Back to home'
             on_press: root.manager.current = 'home'
+
+<BluetoothScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            id: test_connection
+            text:'test connection'

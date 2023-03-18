@@ -69,6 +69,8 @@ class SecondScreen(Screen):
         self.camera_resolution = self.ids.input_teste.text
         print(self.camera_resolution)
 
+class BluetoothScreen(Screen):
+    pass
 
 class WindowManager(ScreenManager):
     pass
@@ -81,9 +83,11 @@ class ScreenLoader(App):
         sm = ScreenManager()
         loading_screen = LoadingScreen(name='loading')
         home_screen = HomeScreen(name='home')
+        bluetooth_screen = BluetoothScreen(name='bluetooth_config')
         sm.add_widget(loading_screen)
         sm.add_widget(home_screen)
         sm.add_widget(SecondScreen(name='settings'))
+        sm.add_widget(bluetooth_screen)
         return sm
 
 if __name__ == '__main__':
