@@ -3,13 +3,13 @@
 
 import sys
 #Processamento de Imagem / Image Processing
-import cv2
+#import cv2
 
-import time
+#import time
 from enum import Enum
 
 import kivy 
-kivy.require('2.1.0')
+kivy.require('1.9.1')
 from kivy.app import App
 from kivy.lang import Builder
 #Gerenciamento Multi-Telas / MultiScreen Management
@@ -63,7 +63,7 @@ class HomeScreen(Screen):
     def quit(self):
         sys.exit("Application Closed by User Command")
 
-class SecondScreen(Screen):
+class CameraScreen(Screen):
     camera_resolution = ""
     def set_camera_resolution(self):
         self.camera_resolution = self.ids.input_teste.text
@@ -83,10 +83,11 @@ class ScreenLoader(App):
         sm = ScreenManager()
         loading_screen = LoadingScreen(name='loading')
         home_screen = HomeScreen(name='home')
+        camera_screen = CameraScreen(name='camera_config')
         bluetooth_screen = BluetoothScreen(name='bluetooth_config')
         sm.add_widget(loading_screen)
         sm.add_widget(home_screen)
-        sm.add_widget(SecondScreen(name='settings'))
+        sm.add_widget(camera_screen)
         sm.add_widget(bluetooth_screen)
         return sm
 
