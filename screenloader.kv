@@ -64,12 +64,18 @@ WindowManager:
 <BluetoothScreen>:
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            id: connected_bluetooth
-            text: 'No Bluetooth Device Connected'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: connected_bluetooth
+                text: 'No Bluetooth Device Connected'
+            Label:
+                id: devices_found
+                text: 'No Bluetooth Device Found'
         Button:
             id: test_connection
-            text:'test connection'
+            text:'search devices'
+            on_press: root.search_devices()
         Button:
             text: 'Back to home'
             on_press: root.manager.current = 'home'

@@ -1,12 +1,14 @@
 #support
 #s://github.com/inclement/colour-blind-camera/blob/master/camera2/main.pyhttp
 
+import blt_func as blt
+import permissions
+
 import sys
 #Processamento de Imagem / Image Processing
 #import cv2
 
 #import time
-from enum import Enum
 
 import kivy 
 kivy.require('1.9.1')
@@ -25,14 +27,6 @@ from kivy.properties import ObjectProperty
 from kivy.uix.progressbar import ProgressBar
 from kivy.uix.textinput import TextInput
 
-#from android.permissions import request_permission, check_permission, Permission
-
-class PermissionRequestState(Enum):
-    UNKNOWN = "UNKNOWN"
-    HAVE_PERMISSION = "HAVE_PERMISSION"
-    DO_NOT_HAVE_PERMISSION = "DO_NOT_HAVE_PERMISSION"
-    AWAITING_REQUEST_RESPONSE = "AWAITING_REQUEST_RESPONSE"
-
 class LoadingScreen(Screen):
     pb = ProgressBar(max=100)
     pb.value = 0
@@ -49,6 +43,7 @@ class LoadingScreen(Screen):
     def callback_func(self):
         Clock.schedule_once(self.progressbar, 1/25)
 
+    permissions.ask_permission()
 
 class HomeScreen(Screen):
     #def capture(self):
@@ -70,7 +65,9 @@ class CameraScreen(Screen):
         print(self.camera_resolution)
 
 class BluetoothScreen(Screen):
-    pass
+    def search_devices(self ):
+        devices_found, self.ids.devices_found.text = blt.search_new_devices()
+        print(devices_found)
 
 class WindowManager(ScreenManager):
     pass
