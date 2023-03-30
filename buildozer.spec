@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = My Application
+title = Robotic Air Hockey
 
 # (str) Package name
-package.name = myapp
+package.name = rah
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.unicentro
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -35,9 +35,9 @@ version = 0.1
 # version.regex = __version__ = ['"](.*)['"]
 # version.filename = %(source.dir)s/main.py
 
-# (list) Application requirements
+# (list) Application requirements                                                               [[REQUIREMENTS]]
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
+requirements = android.permissions,python3,kivy==1.9.0,numpy,opencv2
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -93,9 +93,9 @@ fullscreen = 0
 #icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
-# (list) Permissions
+# (list) Permissions                                                                    [[ANDROID PERMISSIONS]]
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-#android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
+android.permissions = CAMERA
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host

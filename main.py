@@ -1,7 +1,6 @@
 #support
 #s://github.com/inclement/colour-blind-camera/blob/master/camera2/main.pyhttp
 
-import blt_func as blt
 import permissions
 
 import sys
@@ -19,13 +18,14 @@ from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 #Exibição de Imagens / Images Exibition
 from kivy.uix.image import Image
-#Camera / --
-from kivy.uix.camera import Camera
 #Barra de Progresso / Progress Bar
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
 from kivy.uix.progressbar import ProgressBar
 from kivy.uix.textinput import TextInput
+
+from kivy.uix.button import Button
+from kivy.utils import platform
 
 class LoadingScreen(Screen):
     pb = ProgressBar(max=100)
@@ -46,6 +46,19 @@ class LoadingScreen(Screen):
     permissions.ask_permission()
 
 class HomeScreen(Screen):
+    def mount_camera(self):
+        if platform == 'win':
+            from kivy.uix.camera import Camera #Camera / --
+            self.ids.home_main_box.remove_widget(self.ids.camera_image)
+            self.ids.home_main_box.add_widget(
+                Camera(
+                    resolution = (640, 480),
+                    play = True
+                )
+            )
+        elif platform == 'android':
+            from plyer import camera
+            
     #def capture(self):
     #    camera = self.ids['camera']
     #    timestr = time.strftime("%Y%m%d_%H%M%S")
@@ -65,9 +78,28 @@ class CameraScreen(Screen):
         print(self.camera_resolution)
 
 class BluetoothScreen(Screen):
-    def search_devices(self ):
-        devices_found, self.ids.devices_found.text = blt.search_new_devices()
-        print(devices_found)
+    def search_devices(self):
+        if platform=='win':
+
+            import blt_func as blt
+
+            devices_found, self.ids.devices_found.text = blt.search_new_devices()
+            if len(devices_found) > 0:
+                self.ids.blt_device_list.remove_widget(self.ids.devices_found)
+                for device in devices_found:
+                    self.ids.blt_device_list.add_widget(
+                        Button(
+                            #id = str(device[0]),
+                            text="connect to " + str(device[1]),
+                        )
+                    )
+                    #self.ids.str(device[0]).bind(on_press=self.try_connection)
+            elif platform=='android':
+                self.ids.devices_found.text = "Sorry, no implemented yet :p"
+                    
+    def try_connection(self):
+        print("try_connection")
+        #blt.try_connection(addr)
 
 class WindowManager(ScreenManager):
     pass
@@ -75,6 +107,7 @@ class WindowManager(ScreenManager):
 class ScreenLoader(App):
 
     def build(self):
+        permissions.ask_permission()
 
         global sm 
         sm = ScreenManager()

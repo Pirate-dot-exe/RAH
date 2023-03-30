@@ -23,14 +23,13 @@ WindowManager:
 
 <HomeScreen>:
     on_enter: root.destroy_loading()
+    on_enter: root.mount_camera()
     BoxLayout:
+        id: home_main_box
         orientation: 'vertical'
-        #Image:
-        #    source: 'camera.png'
-        #Camera:
-        #    id: camera
-        #    resolution: 640, 480
-        #    play: True
+        Image:
+            id: camera_image
+            source: 'camera.png'
         BoxLayout:
             orientation: 'horizontal'
             size_hint: 1, 0.25
@@ -69,9 +68,12 @@ WindowManager:
             Label:
                 id: connected_bluetooth
                 text: 'No Bluetooth Device Connected'
-            Label:
-                id: devices_found
-                text: 'No Bluetooth Device Found'
+            BoxLayout:
+                id: blt_device_list
+                orientation: 'vertical'
+                Label:
+                    id: devices_found
+                    text: 'No Bluetooth Device Found'
         Button:
             id: test_connection
             text:'search devices'

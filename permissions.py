@@ -3,10 +3,16 @@ from enum import Enum
 
 def ask_permission():
     if platform == 'android':
-        from android.permissions import request_permission, check_permission, Permission
+        from android.permissions import request_permissions, Permission
+        
+        request_permissions([
+            Permission.CAMERA,
+            Permission.WRITE_EXTERNAL_STORAGE,
+            Permission.READ_EXTERNAL_STORAGE
+        ])
 
     if platform == 'win':
-        print("no permissions required")
+        pass
 
 class PermissionRequestState(Enum):
     UNKNOWN = "UNKNOWN"
