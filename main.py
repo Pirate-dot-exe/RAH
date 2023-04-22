@@ -47,8 +47,9 @@ class LoadingScreen(Screen):
 
 class HomeScreen(Screen):
     def mount_camera(self):
+        '''
         if platform == 'win':
-            from kivy.uix.camera import Camera #Camera / --
+            from kivy.uix.camera import Camera #Camera / -- (Deprecated for recent android devices)
             self.ids.home_main_box.remove_widget(self.ids.camera_image)
             self.ids.home_main_box.add_widget(
                 Camera(
@@ -58,6 +59,7 @@ class HomeScreen(Screen):
             )
         elif platform == 'android':
             from plyer import camera
+        '''
             
     #def capture(self):
     #    camera = self.ids['camera']
@@ -78,12 +80,14 @@ class CameraScreen(Screen):
         print(self.camera_resolution)
 
 class BluetoothScreen(Screen):
+    import blt_func as blt
+
     def search_devices(self):
         if platform=='win':
 
-            import blt_func as blt
+            
 
-            devices_found, self.ids.devices_found.text = blt.search_new_devices()
+            devices_found, self.ids.devices_found.text = self.blt.search_new_devices()
             if len(devices_found) > 0:
                 self.ids.blt_device_list.remove_widget(self.ids.devices_found)
                 for device in devices_found:
@@ -91,15 +95,16 @@ class BluetoothScreen(Screen):
                         Button(
                             #id = str(device[0]),
                             text="connect to " + str(device[1]),
+                            on_press=(lambda x: self.try_connection(str(device[0])))
                         )
                     )
                     #self.ids.str(device[0]).bind(on_press=self.try_connection)
             elif platform=='android':
                 self.ids.devices_found.text = "Sorry, no implemented yet :p"
                     
-    def try_connection(self):
+    def try_connection(self, addr):
         print("try_connection")
-        #blt.try_connection(addr)
+        self.blt.try_connection(addr)
 
 class WindowManager(ScreenManager):
     pass

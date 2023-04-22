@@ -95,7 +95,7 @@ fullscreen = 0
 
 # (list) Permissions                                                                    [[ANDROID PERMISSIONS]]
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-android.permissions = CAMERA
+android.permissions = CAMERA, BLUETOOTH, BLUETOOTH_ADMIN
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host

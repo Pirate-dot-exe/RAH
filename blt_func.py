@@ -17,7 +17,7 @@ def search_new_devices():
 def try_connection(addr):
     port = 1
     passkey = "1111"
-    print("ok")
+    print("trying blt connection to " + addr)
 
     '''
     subprocess.call("kill -9 'pidof bluetooth-agent'", shell=True)
@@ -28,4 +28,4 @@ def try_connection(addr):
     except bluetooth.btcommon.BluetoothError as err:
         print("cannot connect bluetooth")
         pass
-        '''
+    '''

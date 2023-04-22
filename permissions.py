@@ -8,7 +8,9 @@ def ask_permission():
         request_permissions([
             Permission.CAMERA,
             Permission.WRITE_EXTERNAL_STORAGE,
-            Permission.READ_EXTERNAL_STORAGE
+            Permission.READ_EXTERNAL_STORAGE,
+            Permission.BLUETOOTH_CONNECT,
+            Permission.BLUETOOTH_SCAN
         ])
 
     if platform == 'win':

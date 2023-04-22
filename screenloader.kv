@@ -78,6 +78,15 @@ WindowManager:
             id: test_connection
             text:'search devices'
             on_press: root.search_devices()
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInput:
+                id: blt_send
+                text: 'write blt address'
+                multiline: True
+            Button:
+                text: 'try connection'
+                on_press: root.try_connection()
         Button:
             text: 'Back to home'
             on_press: root.manager.current = 'home'
