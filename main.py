@@ -84,12 +84,11 @@ class BluetoothScreen(Screen):
 
     def search_devices(self):
         if platform=='win':
-
-            
-
+            self.ids.blt_device_list.clear_widgets()
             devices_found, self.ids.devices_found.text = self.blt.search_new_devices()
             if len(devices_found) > 0:
                 self.ids.blt_device_list.remove_widget(self.ids.devices_found)
+
                 for device in devices_found:
                     self.ids.blt_device_list.add_widget(
                         Button(

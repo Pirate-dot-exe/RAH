@@ -1,4 +1,4 @@
-import bluetooth        #pybluez
+import bluetooth        #pybluez, talvez funcione apenas no win
 import subprocess
 import time
 
@@ -19,7 +19,6 @@ def try_connection(addr):
     passkey = "1111"
     print("trying blt connection to " + addr)
 
-    '''
     subprocess.call("kill -9 'pidof bluetooth-agent'", shell=True)
     status = subprocess.call("bluetooth-agent " + passkey + " &",shell=True)
     try:
@@ -28,4 +27,3 @@ def try_connection(addr):
     except bluetooth.btcommon.BluetoothError as err:
         print("cannot connect bluetooth")
         pass
-    '''
