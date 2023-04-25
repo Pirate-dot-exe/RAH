@@ -1,0 +1,26 @@
+#:kivy 1.9.1
+
+<HomeScreen>:
+    on_enter: root.destroy_loading()
+    on_enter: root.mount_camera()
+    BoxLayout:
+        id: home_main_box
+        orientation: 'vertical'
+        Image:
+            id: camera_image
+            source: 'images/camera.png'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.25
+            Button:
+                text: 'Go to bluetooth'
+                on_press: root.manager.current = 'bluetooth_config'
+                size_hint: 0.5, 1
+            Button:
+                text: 'Goto settings'
+                on_press: root.manager.current = 'camera_config'
+                size_hint: 0.5, 1
+            Button:
+                text: 'Quit'
+                size_hint: 0.5, 1  #x, y
+                on_press: root.quit() 

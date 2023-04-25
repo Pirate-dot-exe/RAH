@@ -1,0 +1,15 @@
+#:kivy 1.9.1
+
+<LoadingScreen>:
+    on_enter: root.callback_func()
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'images/kv.png'
+        Label:
+            id: progress_info
+            text: "Loading... 0%"
+            size_hint: 1, 0.1
+        ProgressBar:
+            id: pb
+            size_hint: 1, 0.3

@@ -27,6 +27,11 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.utils import platform
 
+Builder.load_file('telas/loading_screen.kv')
+Builder.load_file('telas/home_screen.kv')
+Builder.load_file('telas/bluetooth_screen.kv')
+Builder.load_file('telas/camera_screen.kv')
+
 class LoadingScreen(Screen):
     pb = ProgressBar(max=100)
     pb.value = 0

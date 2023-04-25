@@ -1,0 +1,32 @@
+#:kivy 1.9.1
+
+<BluetoothScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                id: connected_bluetooth
+                text: 'No Bluetooth Device Connected'
+            BoxLayout:
+                id: blt_device_list
+                orientation: 'vertical'
+                Label:
+                    id: devices_found
+                    text: 'No Bluetooth Device Found'
+        Button:
+            id: test_connection
+            text:'search devices'
+            on_press: root.search_devices()
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInput:
+                id: blt_send
+                text: 'Escreva algo para enviar'
+                multiline: True
+            Button:
+                text: 'Send Data'
+                on_press: root.send_data()
+        Button:
+            text: 'Back to home'
+            on_press: root.manager.current = 'home'
