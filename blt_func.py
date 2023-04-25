@@ -1,10 +1,7 @@
 #TODO: 
-#Implementar/Adaptar função que faça o pareamento com o dispositivo escolhido 
 #Implementar função que permita o envio de dados ao dispositivo
 
 import bluetooth        #pybluez, talvez funcione apenas no win
-import subprocess
-import time
 
 def search_new_devices():
     device_list = ''
@@ -28,20 +25,6 @@ def find_services(addr, name):
             print(serv['name'])
 
 def try_connection(addr):
-    port = 4
-    passkey = "1111"
-    print("trying blt connection to " + addr)
-
-    subprocess.call("kill -9 'pidof bluetooth-agent'", shell=True)
-    status = subprocess.call("bluetooth-agent " + passkey + " &",shell=True)
-    try:
-        blt_connection = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-        blt_connection.connect((addr, port))
-    except bluetooth.btcommon.BluetoothError as err:
-        print("cannot connect bluetooth")
-        pass
-#testes---------------------------------------------------------------------------------------------------
-def try_connection_socket(addr):
     import socket
 
     ports = range(1, 30)  # Números de porta a serem verificados
@@ -50,9 +33,15 @@ def try_connection_socket(addr):
         sock = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
         try:
             sock.connect((addr, port))
-            print("Conexão estabelecida com sucesso!")
-            break
+            print("Conexao estabelecida com sucesso!")
+            return sock
         except socket.error as err:
             print("nao foi possivel se conectar a porta ", port)
-        sock.close()
-#try_connection_socket(val_esp)
+    return None
+
+#Uncomment this line to direct test of try_connection function
+#try_connection("84:CC:A8:7A:06:7A")
+
+def send_data(socket):
+    #implement send_data
+    pass
