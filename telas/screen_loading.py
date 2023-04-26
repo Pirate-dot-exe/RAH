@@ -2,6 +2,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.clock import Clock
 from kivy.uix.progressbar import ProgressBar
 
+from telas.screen_home import HomeScreen
+
 class LoadingScreen(Screen):
     pb = ProgressBar(max=100)
     pb.value = 0
@@ -12,13 +14,14 @@ class LoadingScreen(Screen):
             self.ids.progress_info.text = f"Loading... {int(self.ids.pb.value)}%"
             Clock.schedule_once(self.progressbar, 1/25)
         else:
-            sm = ScreenManager()
             self.ids.progress_info.text = "Loading Complete! (wait a minute)"
-            home = HomeScreen(name = 'home')
-            sm.current = home
-    
+            self.go_to_home()
+            
     def callback_func(self):
         Clock.schedule_once(self.progressbar, 1/25)
+
+    def go_to_home(self):
+        self.manager.current = "home"
 
     def remove_myself(self):
         self.manager.remove_widget(self)
