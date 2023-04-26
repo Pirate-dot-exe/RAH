@@ -16,6 +16,7 @@ class LoadingScreen(Screen):
         else:
             self.ids.progress_info.text = "Loading Complete! (wait a minute)"
             self.go_to_home()
+            self.remove_myself()
             
     def callback_func(self):
         Clock.schedule_once(self.progressbar, 1/25)

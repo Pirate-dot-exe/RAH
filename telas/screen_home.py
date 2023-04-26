@@ -5,6 +5,7 @@ from kivy.lang import Builder
 
 class HomeScreen(Screen):
     def mount_camera(self):
+        pass
         '''
         if platform == 'win':
             from kivy.uix.camera import Camera #Camera / -- (Deprecated for recent android devices)
@@ -24,11 +25,6 @@ class HomeScreen(Screen):
     #    timestr = time.strftime("%Y%m%d_%H%M%S")
     #    camera.export_to_png("IMG_{}.png".format(timestr))
     #    print("Captured")
-    def destroy_loading(self):
-        sm = ScreenManager()
-        self.manager.get_screen('loading')
-        loading_screen = LoadingScreen(name='loading')
-        sm.remove_widget(loading_screen)
 
     def quit(self):
         sys.exit("Application Closed by User Command")
