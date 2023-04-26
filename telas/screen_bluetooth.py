@@ -21,9 +21,33 @@ class BluetoothScreen(Screen):
                         )
                     )
                     #self.ids.str(device[0]).bind(on_press=self.try_connection)
-            elif platform=='android':
-                self.ids.devices_found.text = "Sorry, no implemented yet :p"
+            else:
+                pass
+        elif platform=='android':
+            self.ids.devices_found.text = "Sorry, no implemented yet :p"
                     
     def try_connection(self, addr):
         print("try_connection")
-        self.blt.try_connection(addr)
+        self.connection_socket = self.blt.try_connection(addr)
+        if self.connection_socket is not None:
+            self.ids.connected_bluetooth.text = "Device connected"
+            self.ids.blt_send_data.disabled = False
+            self.disconnect_button = Button(
+                text="disconnect device",
+                on_press=(
+                    lambda x: self.close_connection(self.connection_socket)
+                )
+            )
+            self.ids.connection_layout.add_widget(self.disconnect_button)
+        else:
+            pass
+    
+    def close_connection(self, socket):
+        self.blt.close_connection(socket)
+        self.ids.connection_layout.remove_widget(self.disconnect_button)
+        self.ids.blt_send_data.disabled = True
+        self.ids.connected_bluetooth.text = "No connected Devices!"
+
+    def send_message(self):
+        message = self.ids.blt_message.text
+        self.blt.send_message(self.connection_socket, message)

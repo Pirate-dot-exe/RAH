@@ -12,7 +12,7 @@ class LoadingScreen(Screen):
         if self.ids.pb.value < 100:
             self.ids.pb.value += 1
             self.ids.progress_info.text = f"Loading... {int(self.ids.pb.value)}%"
-            Clock.schedule_once(self.progressbar, 1/25)
+            Clock.schedule_once(self.progressbar, 1/50)
         else:
             self.ids.progress_info.text = "Loading Complete! (wait a minute)"
             self.go_to_home()

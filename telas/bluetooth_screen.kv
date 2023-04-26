@@ -1,15 +1,36 @@
 #:kivy 1.9.1
 
-<LoadingScreen>:
-    on_enter: root.callback_func()
+<BluetoothScreen>:
     BoxLayout:
+        id: main_bt_layout
         orientation: 'vertical'
-        Image:
-            source: 'images/kv.png'
-        Label:
-            id: progress_info
-            text: "Loading... 0%"
-            size_hint: 1, 0.1
-        ProgressBar:
-            id: pb
-            size_hint: 1, 0.3
+        BoxLayout:
+            id: connection_layout
+            orientation: 'horizontal'
+            Label:
+                id: connected_bluetooth
+                text: 'No Bluetooth Device Connected'
+            BoxLayout:
+                id: blt_device_list
+                orientation: 'vertical'
+                Label:
+                    id: devices_found
+                    text: 'No Bluetooth Device Found'
+        Button:
+            id: test_connection
+            text:'search devices'
+            on_press: root.search_devices()
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInput:
+                id: blt_message
+                text: 'Escreva algo para enviar'
+                multiline: True
+            Button:
+                id: blt_send_data
+                text: 'Send Data'
+                on_press: root.send_message()
+                disabled: True
+        Button:
+            text: 'Back to home'
+            on_press: root.manager.current = 'home'

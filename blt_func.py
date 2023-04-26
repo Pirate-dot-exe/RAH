@@ -2,19 +2,24 @@
 #Implementar função que permita o envio de dados ao dispositivo
 
 import bluetooth        #pybluez, talvez funcione apenas no win
+import socket
 
 def search_new_devices():
     device_list = ''
     nearby_devices = bluetooth.discover_devices(
-        duration = 5,
+        duration = 3,
         lookup_names=True
     )
-    print("Devices found!")
-    for addr, name in nearby_devices:
-        print("address: ", addr, "name: ", name)
-        device_list = device_list + "name: " + name + " address: " + addr + "\n"
-        find_services(addr, name)
-    return nearby_devices, device_list
+    if len(nearby_devices) <= 0:
+        print("No devices Found!")
+        return nearby_devices, ""
+    else:
+        print("Devices found!")
+        for addr, name in nearby_devices:
+            print("address: ", addr, "name: ", name)
+            device_list = device_list + "name: " + name + " address: " + addr + "\n"
+            find_services(addr, name)
+        return nearby_devices, device_list
 
 def find_services(addr, name):
     services = bluetooth.find_service(addr)
@@ -25,8 +30,6 @@ def find_services(addr, name):
             print(serv['name'])
 
 def try_connection(addr):
-    import socket
-
     ports = range(1, 30)  # Números de porta a serem verificados
     for port in ports:
         print("trying to connect at port" + str(port) + "...")
@@ -39,9 +42,9 @@ def try_connection(addr):
             print("nao foi possivel se conectar a porta ", port)
     return None
 
-#Uncomment this line to direct test of try_connection function
-#try_connection("84:CC:A8:7A:06:7A")
+def close_connection(socket):
+    socket.close()
 
-def send_data(socket):
-    #implement send_data
-    pass
+def send_message(socket, data):
+    encoded_data = data.encode()
+    socket.send(encoded_data)
