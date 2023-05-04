@@ -8,7 +8,7 @@ parser.add_argument('-v', '--video', type=str, help='video path')
 args = parser.parse_args()
 #cap = cv.VideoCapture("Vídeos/Teste_IC.mp4")
 vs = VideoStream(src=0).start()
-cap = cv.VideoCapture("sources/Teste_IC.mp4")
+cap = cv.VideoCapture("../sources/Teste_IC.mp4")
 
 # take first frame of the video
 ret,frame = cap.read()

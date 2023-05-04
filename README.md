@@ -1,5 +1,6 @@
 RAH - Robotic Air Hockey Application
 
 This Application is Using
-~Python: 3.7.16
-~Kivy: 2.1.0
+~Python (VE): 2.7  
+~Kivy: 1.9.0
+
