@@ -1,3 +1,0 @@
-title=RAH APP
-author=Felipe Rangel
-orientation=portrait
