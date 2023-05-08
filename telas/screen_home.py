@@ -15,14 +15,14 @@ class HomeScreen(Screen):
                 try:
                     from kivy.uix.camera import Camera #Camera / -- (Deprecated for recent android devices)
                     self.ids.home_main_box.remove_widget(self.ids.camera_image)
-                    win_camera = Camera(
+                    self.win_camera = Camera(
                         resolution = (640, 480),
                         play = True
                     )
-                    self.ids.home_main_box.add_widget(win_camera)
+                    self.ids.home_main_box.add_widget(self.win_camera)
                     self.camera_created = True
                 except Exception as err:
-                    win_camera.stop()
+                    self.win_camera.stop()
                     camera_icon = Image(
                         source = 'images/camera.png'
                     )
@@ -41,6 +41,10 @@ class HomeScreen(Screen):
     #    camera.export_to_png("IMG_{}.png".format(timestr))
     #    print("Captured")
 
+    def play_stop_camera(self):
+        #if self.win_camera
+        pass
+    
     def quit(self):
         sys.exit("Application Closed by User Command")
 

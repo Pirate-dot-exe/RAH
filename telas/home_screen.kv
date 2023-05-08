@@ -11,6 +11,9 @@
             orientation: 'horizontal'
             size_hint: 1, 0.25
             Button:
+                text: 'Pause/Play'
+                on_press: pass
+            Button:
                 text: 'Go to bluetooth'
                 on_press: root.manager.current = 'bluetooth_config'
                 size_hint: 0.5, 1
