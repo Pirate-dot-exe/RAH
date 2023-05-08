@@ -10,6 +10,11 @@
         Button:
             text: 'Set Camera Resolution'
             on_press: root.set_camera_resolution()
+        BoxLayout:
+            orientation: 'horizontal'
+            Button: 
+                text: 'Ligar camera'
+                on_press: root.camera_start()
         Button:
             text: 'Back to home'
             on_press: root.manager.current = 'home'

@@ -3,7 +3,7 @@ from kivy.uix.button import Button
 from kivy.utils import platform
 
 class BluetoothScreen(Screen):
-    import blt_func as blt
+    import functions.blt_func as blt
 
     def search_devices(self):
         if platform=='win':

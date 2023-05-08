@@ -8,8 +8,8 @@
 
 BluetoothSerial SerialBT;
 
-int LED_DIR_PIN = 2; //set pin G2 
-int LED_ESQ_PIN = 22;
+int LED_DIR_PIN = 2; //set pin G2 (BT - desconectado ou procurando)
+int LED_ESQ_PIN = 22;//set pin G22 (BT - conectado)
 
 void BT_STATUS(esp_spp_cb_event_t event, esp_spp_cb_param_t *param){
   if (event == ESP_SPP_SRV_OPEN_EVT){

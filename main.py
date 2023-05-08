@@ -20,7 +20,7 @@ Builder.load_file('telas/home_screen.kv')
 Builder.load_file('telas/bluetooth_screen.kv')
 Builder.load_file('telas/camera_screen.kv')
 
-import rah_permissions
+import functions.rah_permissions as rah_permissions
 from telas.screen_loading import LoadingScreen
 from telas.screen_home import HomeScreen
 from telas.screen_camera import CameraScreen
