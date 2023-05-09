@@ -14,6 +14,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 #Exibição de Imagens / Images Exibition
 from kivy.uix.image import Image
 
+print(kivy.__version__)
+print(sys.version)
 
 Builder.load_file('telas/loading_screen.kv')
 Builder.load_file('telas/home_screen.kv')

@@ -4,15 +4,18 @@
     BoxLayout:
         id: home_main_box
         orientation: 'vertical'
-        Image:
-            id: camera_image
-            source: 'images/camera.png'
+        BoxLayout:
+            id: camera_box
+            orientation: 'horizontal'
+            Image:
+                id: camera_icon
+                source: 'images/camera.png'
         BoxLayout:
             orientation: 'horizontal'
             size_hint: 1, 0.25
             Button:
                 text: 'Pause/Play'
-                on_press: pass
+                on_press: root.play_stop_camera()
             Button:
                 text: 'Go to bluetooth'
                 on_press: root.manager.current = 'bluetooth_config'

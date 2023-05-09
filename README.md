@@ -7,3 +7,4 @@ This Application is Using
 
 ---A FAZER---
 *Fazer a mudança da camera para a da cv2
++Separar a busca de bluetooth em uma thread a parte impedindo que a interface gráfica pare de responder quando existem muitos dispositivos próximos

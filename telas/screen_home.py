@@ -1,50 +1,67 @@
 import sys
+import cv2
 
 from kivy import platform
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
+from kivy.clock import Clock
+from kivy.uix.image import Image
+from kivy.graphics.texture import Texture
 
+
+class OpenCVCamera(Image):
+    def __init__(self, capture, **kwargs):
+        super(OpenCVCamera, self).__init__(**kwargs)
+        self.capture = capture
+
+    def capture_frame(self, dt):
+        ret, frame = self.capture.read()
+        if ret:
+            buf = cv2.flip(frame, 0).tostring()
+            texture = Texture.create(size=(frame.shape[1], frame.shape[0]))
+            texture.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
+            self.texture = texture
+    
+    def release(self):
+        self.capture.release()
+        self.ids.camera_box.clear_widgets()
 
 class HomeScreen(Screen):
-    camera_created = False
+    camera_status = 'off'
 
     def mount_camera(self):
-        if self.camera_created == False:
+        if self.camera_status == 'off':
             if platform == 'win':
                 print("trying to mount camera")
                 try:
-                    from kivy.uix.camera import Camera #Camera / -- (Deprecated for recent android devices)
-                    self.ids.home_main_box.remove_widget(self.ids.camera_image)
-                    self.win_camera = Camera(
-                        resolution = (640, 480),
-                        play = True
-                    )
-                    self.ids.home_main_box.add_widget(self.win_camera)
-                    self.camera_created = True
+                    self.capture = cv2.VideoCapture(0)
+                    self.opencv_camera = OpenCVCamera(capture=self.capture)
+                    Clock.schedule_interval(self.opencv_camera.capture_frame, 1.0/30)    
+                    self.ids.camera_box.add_widget(self.opencv_camera)
+                    self.camera_status = 'on'
+                    self.ids.camera_box.remove_widget(self.ids.camera_icon)
                 except Exception as err:
-                    self.win_camera.stop()
                     camera_icon = Image(
                         source = 'images/camera.png'
                     )
-                    self.ids.home_main_box.add_widget(camera_icon)
+                    self.ids.camera_box.add_widget(camera_icon)
                     raise MountCameraException("Nao foi possivel montar a camera no dispositivo") from err
-                
 
             elif platform == 'android':
-                from kivy.uix.image import Image
-                from kivy.clock import Clock
-                from plyer import camera        
-            
-    #def capture(self):
-    #    camera = self.ids['camera']
-    #    timestr = time.strftime("%Y%m%d_%H%M%S")
-    #    camera.export_to_png("IMG_{}.png".format(timestr))
-    #    print("Captured")
+                pass     
+    
+    def unmount_camera(self):
+        self.opencv_camera.release()
+        self.camera_status = 'off'
 
     def play_stop_camera(self):
-        #if self.win_camera
+        if self.camera_status == 'off':
+            self.mount_camera()
+        elif self.camera_status == 'on':
+            self.unmount_camera()
+
         pass
-    
+
     def quit(self):
         sys.exit("Application Closed by User Command")
 
