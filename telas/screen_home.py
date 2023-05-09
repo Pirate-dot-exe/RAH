@@ -24,7 +24,6 @@ class OpenCVCamera(Image):
     
     def release(self):
         self.capture.release()
-        self.ids.camera_box.clear_widgets()
 
 class HomeScreen(Screen):
     camera_status = 'off'
@@ -34,12 +33,12 @@ class HomeScreen(Screen):
             if platform == 'win':
                 print("trying to mount camera")
                 try:
+                    self.ids.camera_box.clear_widgets()
                     self.capture = cv2.VideoCapture(0)
                     self.opencv_camera = OpenCVCamera(capture=self.capture)
                     Clock.schedule_interval(self.opencv_camera.capture_frame, 1.0/30)    
                     self.ids.camera_box.add_widget(self.opencv_camera)
                     self.camera_status = 'on'
-                    self.ids.camera_box.remove_widget(self.ids.camera_icon)
                 except Exception as err:
                     camera_icon = Image(
                         source = 'images/camera.png'
@@ -52,6 +51,7 @@ class HomeScreen(Screen):
     
     def unmount_camera(self):
         self.opencv_camera.release()
+        self.ids.camera_box.clear_widgets()
         self.camera_status = 'off'
 
     def play_stop_camera(self):
@@ -59,8 +59,10 @@ class HomeScreen(Screen):
             self.mount_camera()
         elif self.camera_status == 'on':
             self.unmount_camera()
-
-        pass
+            camera_icon = Image(
+                source = 'images/camera.png'
+            )
+            self.ids.camera_box.add_widget(camera_icon)
 
     def quit(self):
         sys.exit("Application Closed by User Command")
