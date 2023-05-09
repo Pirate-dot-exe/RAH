@@ -8,6 +8,7 @@ from kivy.clock import Clock
 from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 
+from functions import aruco_detection
 
 class OpenCVCamera(Image):
     def __init__(self, capture, **kwargs):
@@ -16,6 +17,7 @@ class OpenCVCamera(Image):
 
     def capture_frame(self, dt):
         ret, frame = self.capture.read()
+        frame = aruco_detection.aruco_detect(frame)
         if ret:
             buf = cv2.flip(frame, 0).tostring()
             texture = Texture.create(size=(frame.shape[1], frame.shape[0]))
@@ -28,7 +30,7 @@ class OpenCVCamera(Image):
 class HomeScreen(Screen):
     camera_status = 'off'
 
-    def mount_camera(self):
+    def play_stop_camera(self):
         if self.camera_status == 'off':
             if platform == 'win':
                 print("trying to mount camera")
@@ -48,17 +50,10 @@ class HomeScreen(Screen):
 
             elif platform == 'android':
                 pass     
-    
-    def unmount_camera(self):
-        self.opencv_camera.release()
-        self.ids.camera_box.clear_widgets()
-        self.camera_status = 'off'
-
-    def play_stop_camera(self):
-        if self.camera_status == 'off':
-            self.mount_camera()
         elif self.camera_status == 'on':
-            self.unmount_camera()
+            self.opencv_camera.release()
+            self.ids.camera_box.clear_widgets()
+            self.camera_status = 'off'
             camera_icon = Image(
                 source = 'images/camera.png'
             )
