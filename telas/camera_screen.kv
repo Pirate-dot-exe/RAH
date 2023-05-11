@@ -3,13 +3,30 @@
 <CameraScreen>:
     BoxLayout:
         orientation: 'vertical'
-        TextInput:
-            id: input_teste 
-            text: "640, 480"
-            multiline: False
-        Button:
-            text: 'Set Camera Resolution'
-            on_press: root.set_camera_resolution()
-        Button:
-            text: 'Back to home'
-            on_press: root.manager.current = 'home'
+        BoxLayout:
+            orientation: 'horizontal'
+            TextInput:
+                id: input_teste 
+                text: "640, 480"
+                multiline: False
+            Button:
+                text: 'Set Camera Resolution'
+                on_press: root.set_camera_resolution()
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'Back to home'
+                on_press: root.manager.current = 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: red_value_slider
+                    min: 0
+                    max: 255
+                    value_track: 'int'
+                    step: 1
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: red_value_label
+                    text: str(red_value_slider.value)
