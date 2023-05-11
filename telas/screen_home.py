@@ -9,6 +9,7 @@ from kivy.uix.image import Image
 from kivy.graphics.texture import Texture
 
 from functions import aruco_detection
+from functions import disco_tracking
 
 class OpenCVCamera(Image):
     def __init__(self, capture, **kwargs):
@@ -18,6 +19,7 @@ class OpenCVCamera(Image):
     def capture_frame(self, dt):
         ret, frame = self.capture.read()
         frame = aruco_detection.aruco_detect(frame)
+        frame = disco_tracking.find_disk(ret, frame)
         if ret:
             buf = cv2.flip(frame, 0).tostring()
             texture = Texture.create(size=(frame.shape[1], frame.shape[0]))
