@@ -18,6 +18,7 @@
                 text: 'Back to home'
                 on_press: root.manager.current = 'home'
             BoxLayout:
+                id: slider_box
                 orientation: 'vertical'
                 Slider:
                     id: red_value
@@ -25,18 +26,21 @@
                     max: 255
                     value_track: 'int'
                     step: 1
+                    on_value: root.update_color()
                 Slider:
-                    id: green_value_slider
+                    id: green_value
                     min: 0
                     max: 255
                     value_track: 'int'
                     step: 1
+                    on_value: root.update_color()
                 Slider:
-                    id: blue_value_slider
+                    id: blue_value
                     min: 0
                     max: 255
                     value_track: 'int'
                     step: 1
+                    on_value: root.update_color()
             BoxLayout:
                 id: color_box_layout
                 orientation: 'vertical'
@@ -45,7 +49,9 @@
                     text: 'red_value ' + str(red_value.value)
                 Label:
                     id: green_value_label
-                    text: 'green_value ' + str(green_value_slider.value)
+                    text: 'green_value ' + str(green_value.value)
                 Label:
                     id: blue_value_label
-                    text: 'blue_value ' + str(blue_value_slider.value)
+                    text: 'blue_value ' + str(blue_value.value)
+            CustomColorBox:
+                id: color_box
