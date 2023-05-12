@@ -20,13 +20,32 @@
             BoxLayout:
                 orientation: 'vertical'
                 Slider:
-                    id: red_value_slider
+                    id: red_value
+                    min: 0
+                    max: 255
+                    value_track: 'int'
+                    step: 1
+                Slider:
+                    id: green_value_slider
+                    min: 0
+                    max: 255
+                    value_track: 'int'
+                    step: 1
+                Slider:
+                    id: blue_value_slider
                     min: 0
                     max: 255
                     value_track: 'int'
                     step: 1
             BoxLayout:
+                id: color_box_layout
                 orientation: 'vertical'
                 Label:
                     id: red_value_label
-                    text: str(red_value_slider.value)
+                    text: 'red_value ' + str(red_value.value)
+                Label:
+                    id: green_value_label
+                    text: 'green_value ' + str(green_value_slider.value)
+                Label:
+                    id: blue_value_label
+                    text: 'blue_value ' + str(blue_value_slider.value)
