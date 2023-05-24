@@ -8,6 +8,7 @@ This Application is Using
 ---A FAZER---  
 (*obrigatórios, +adicionais)
 
+*ajustar dinamicamente o tempo de delay do comando para a quantidade de FPS  
 +solucionar o problema de no_image! na função de detecção de Aruco, assim que a camera é desligada
 +implementar mais um conjunto de barras deslizantes  
 +implementar try/catch para que a aplicação não crashe quando não há imagem para detecção  
