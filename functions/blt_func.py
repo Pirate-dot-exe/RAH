@@ -18,7 +18,7 @@ def search_new_devices():
         for addr, name in nearby_devices:
             print("address: ", addr, "name: ", name)
             device_list = device_list + "name: " + name + " address: " + addr + "\n"
-            find_services(addr, name)
+            #find_services(addr, name)
         return nearby_devices, device_list
 
 def find_services(addr, name):

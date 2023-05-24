@@ -4,6 +4,7 @@ from kivy.utils import platform
 
 class BluetoothScreen(Screen):
     import functions.blt_func as blt
+    import functions.socket_manager as socket_m
 
     def search_devices(self):
         if platform=='win':
@@ -29,6 +30,7 @@ class BluetoothScreen(Screen):
     def try_connection(self, addr):
         print("try_connection")
         self.connection_socket = self.blt.try_connection(addr)
+        self.socket_m.conection_socket = self.connection_socket
         if self.connection_socket is not None:
             self.ids.connected_bluetooth.text = "Device connected"
             self.ids.blt_send_data.disabled = False
@@ -51,3 +53,6 @@ class BluetoothScreen(Screen):
     def send_message(self):
         message = self.ids.blt_message.text
         self.blt.send_message(self.connection_socket, message)
+
+    def send_coordinates(self, controll):
+        self.blt.send_message(self.connection_socket, controll)
